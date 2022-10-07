@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <title>Contribution Graph Test</title>
+        <script src="https://cdn.jsdelivr.net/npm/@svgdotjs/svg.js@3.0/dist/svg.min.js"></script>
+        <script src="scrape.js"></script>
+    </head>
+    <body>
+        
+    </body>
+    <script>
+        let draw = SVG().addTo('body').size(1200, 300)
+       // let rect = draw.rect(100, 100).attr({ fill: '#f06' })
+        let list = new SVG.List()
+
+        function initSquares(rectSize, gapSize, cornerRadius) {
+            const currentDay = new Date().getDay();
+            for (let i = 0; i < 52; i += 1) {
+                let inner = new SVG.List();
+                for (let j = 0; j < 7; j += 1) {
+                    let rect = draw.rect(rectSize,rectSize).attr({fill: '#000', opacity: '0.2'}).radius(cornerRadius).move(i*gapSize, j*gapSize)
+                    inner.push(rect)
+
+                    if (i == 51 && j == currentDay) break;
+                }
+                list.push(inner);
+            }
+        }
+
+        initSquares(15, 17, 4);
+        list[3][6].attr({fill:'#2b2', opacity: 0.5})
+    </script>
+</html>
